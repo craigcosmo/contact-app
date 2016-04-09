@@ -6,7 +6,7 @@ export default class Search extends React.Component{
 			<div class="row">
 				<br />
 				<div class="form-group input-group">
-					<input type="text" class="form-control" placeholder="Search for..." />
+					<input type="text" class="form-control" placeholder="Search contact..." />
 					<span class="input-group-btn">
 					<button class="btn btn-default" type="button">
 						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
