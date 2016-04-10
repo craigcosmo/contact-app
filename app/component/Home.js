@@ -23,15 +23,22 @@ export default class Home extends React.Component{
 }
 
 class List extends React.Component{
+	
 	render(){ 
+		const ul = this.props.userList;
+		console.log(ul);
 		return(
 			<div class="row">
-				{
-					for(var i in this.props.userList){
-						return {i}
-					}
-				}
+			
 			</div>
 		)
 	}
 }
+
+
+
+// {
+// 	for(var i in this.props.userList){
+// 		return {i}
+// 	}
+// }
