@@ -8,7 +8,7 @@ export default class Create extends React.Component{
 
 
 		this.state = {
-			id:null,
+			id: null,
 			firstName:'',
 			lastName: '',
 			email:'',
@@ -22,13 +22,12 @@ export default class Create extends React.Component{
 			}
 		};
 	}
-	mergeUpdateAddress (key, val) {
-		const state = AddonUpdate(this.state, {
-			address: { 
-				key : {	$set: val }
-			}
-		});		
-		this.setState(state);
+	createId(){
+		const id = new Date().getTime() + Math.floor(Math.random() * 1000);
+		this.setState({id:id});
+	}
+	componentDidMount(){
+		this.createId();
 	}
 	updateAddressObject(key,val){
 		// console.log(key, val);
@@ -40,7 +39,6 @@ export default class Create extends React.Component{
 		});
 		this.setState(state);
 	}
-	
 	emailChange(e){
 		this.setState({
 			email: e.target.value
@@ -96,13 +94,10 @@ export default class Create extends React.Component{
 
 	handleSubmit(e){
 		e.preventDefault();
-		console.log(this.state);
 		this.validateForm(function (){
 			this.firebaseRef.push(this.state, function (res){
-				// in firebase null mean nothing wrong, success
+				// in firebase return null mean nothing wrong, success
 				if(res === null){
-					// console.log('insert success');
-					// redirect to home
 					this.navigate();
 				}
 			}.bind(this));
