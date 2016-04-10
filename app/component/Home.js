@@ -3,37 +3,61 @@ import EmptyList from "../component/EmptyList";
 // import List from "../component/List";	
 
 
+class List extends React.Component{
+	createItem(item, index) {
+		return (
+			<button key={ index }>
+				{ item.firstName }
+			</button>
+		);
+	}
+	render(){ 
+		return(
+			<div class="row">
+				{this.props.userList.map(this.createItem.bind(this))}
+			</div>
+		)
+	}
+}
+
+
 export default class Home extends React.Component{
+	constructor(){
+		super();
+		this.state = {
+			items : []
+		};
+	}
 	componentWillMount(){
 		this.firebaseRef = new Firebase('https://sweltering-heat-7923.firebaseio.com/contact');
 		this.firebaseRef.once("value", function (snapshot){
+			const items = [];
 			snapshot.forEach(function(data){
-				this.setState(data.val())
+				const item = {
+					id: data.val().id,
+					firstName: data.val().firstName
+				};
+				items.push(item);
 			}.bind(this));
-		}.bind(this));
+			this.setState({
+				items : items
+			});
+		}.bind(this));	
+	}
+	componentWillUnmount() {
+		this.firebaseRef.off();
 	}
 	navigate () { 
 		this.context.router.push('/create');
 	}
 	render(){ 
 		return(
-			<List userList = {this.state} />
+			<List userList={this.state.items} />
 		)
 	}
 }
 
-class List extends React.Component{
-	
-	render(){ 
-		const ul = this.props.userList;
-		console.log(ul);
-		return(
-			<div class="row">
-			
-			</div>
-		)
-	}
-}
+
 
 
 
