@@ -21,6 +21,7 @@ export default class Home extends React.Component{
 					id: data.val().id,
 					firstName: data.val().firstName
 				};
+				item['.key'] = data.key();
 				items.push(item);
 			}.bind(this));
 			this.setState({

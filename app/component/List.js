@@ -1,12 +1,21 @@
 import React from "react";
+import {PropTypes} from "react";
 import {Link} from "react-router";
 
 export default class List extends React.Component{
+	editItem(){
+		this.context.router.push({
+			pathname: '/create',
+			query: {
+				key: this.props.key
+			}
+		});
+	}
 	createItem(item, index) {
 		return (
-			<Link to="create" class="list-group-item" key={ item.id }>
+			<a class="list-group-item" firekey= {item['.key']} key={ item['.key'] } onClick={this.editItem}>
 					{ item.firstName }
-			</Link>
+			</a>
 		);
 	}
 	render(){ 
@@ -18,4 +27,7 @@ export default class List extends React.Component{
 			</div>
 		)
 	}
+}
+List.contextTypes = {
+    router: PropTypes.object.isRequired
 }
