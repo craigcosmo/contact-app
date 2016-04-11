@@ -1,24 +1,8 @@
 import React from "react";
 import EmptyList from "../component/EmptyList";
-// import List from "../component/List";	
+import List from "../component/List";	
 
 
-class List extends React.Component{
-	createItem(item, index) {
-		return (
-			<button key={ index }>
-				{ item.firstName }
-			</button>
-		);
-	}
-	render(){ 
-		return(
-			<div class="row">
-				{this.props.userList.map(this.createItem.bind(this))}
-			</div>
-		)
-	}
-}
 
 
 export default class Home extends React.Component{

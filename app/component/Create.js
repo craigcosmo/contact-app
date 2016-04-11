@@ -1,12 +1,11 @@
 import React from "react";
 import {PropTypes} from "react";
+import {Link} from "react-router";
 
 
 export default class Create extends React.Component{
 	constructor(){
 		super();
-
-
 		this.state = {
 			id: null,
 			firstName:'',
@@ -23,7 +22,13 @@ export default class Create extends React.Component{
 		};
 	}
 	createId(){
-		const id = new Date().getTime() + Math.floor(Math.random() * 1000);
+
+		const no1= new Date().getTime().toString();
+		const no2 = (Math.floor(Math.random()*90000) + 10000).toString();
+
+		const total = no1 + no2;
+		const id = parseInt(total);
+
 		this.setState({id:id});
 	}
 	componentDidMount(){
@@ -98,40 +103,51 @@ export default class Create extends React.Component{
 			this.firebaseRef.push(this.state, function (res){
 				// in firebase return null mean nothing wrong, success
 				if(res === null){
+					console.log('inserted');
 					this.navigate();
+					this.setState = '';
 				}
 			}.bind(this));
 		}.bind(this));
 	}
+	cancelBtnOnClick(e){
+		e.preventDefault();
+		this.navigate();
+	}
+	deleteContact(){
+		firebaseRef.child(key).remove();
+	}
 	render(){ 
-
+		const cancelbtn = {
+			marginRight: '20px'
+		};
 		return(
 			<div class="row">
 				<form id="new-form" onSubmit={this.handleSubmit.bind(this)}>
 					
 					<div class="form-group">
-						<input type="text" class="form-control" onChange={this.firstNameChange.bind(this)} id="first-name" placeholder="First Name" />
+						<input type="text" ref="firstName" class="form-control" onChange={this.firstNameChange.bind(this)} id="first-name" placeholder="First Name" />
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" onChange={this.lastNameChange.bind(this)} id="last-name" placeholder="Last Name" />
+						<input type="text" ref="lastName" class="form-control" onChange={this.lastNameChange.bind(this)} id="last-name" placeholder="Last Name" />
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" onChange={this.phoneChange.bind(this)} id="phone" placeholder="Phone" />
+						<input type="text" ref="phone" class="form-control" onChange={this.phoneChange.bind(this)} id="phone" placeholder="Phone" />
 					</div>
 					<div class="form-group">
-						<input type="email" class="form-control" onChange={this.emailChange.bind(this)} id="email" placeholder="Email" />
+						<input type="email" ref="email" class="form-control" onChange={this.emailChange.bind(this)} id="email" placeholder="Email" />
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" onChange={this.genderChange.bind(this)} id="gender" placeholder="Gender" />
+						<input type="text" ref="gender" class="form-control" onChange={this.genderChange.bind(this)} id="gender" placeholder="Gender" />
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" onChange={this.address1Change.bind(this)} id="address1" placeholder="Address Line 1" />
+						<input type="text" ref="address1" class="form-control" onChange={this.address1Change.bind(this)} id="address1" placeholder="Address Line 1" />
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" onChange={this.address2Change.bind(this)} id="address2" placeholder="Address Line 2" />
+						<input type="text" ref="address2" class="form-control" onChange={this.address2Change.bind(this)} id="address2" placeholder="Address Line 2" />
 					</div>
 					<div class="form-group">
-						<input type="text" class="form-control" onChange={this.postalCodeChange.bind(this)} id="postal-code" placeholder="Postal Code" />
+						<input type="text" ref="postalCode" class="form-control" onChange={this.postalCodeChange.bind(this)} id="postal-code" placeholder="Postal Code" />
 					</div>
 					<div class="checkbox">
 						<label>
@@ -139,10 +155,11 @@ export default class Create extends React.Component{
 						</label>
 					</div>
 					<div class="form-group text-right">
+						<Link to="/" class="btn btn-default" style={cancelbtn}>Cancel</Link>
 						<button type="submit" class="btn btn-default" >Done</button>
 					</div>
 					<div class="form-group ">
-						<a href="#">Delete This Contact</a>
+						<a href="#" onClick={this.deleteContact.bind(this)}>Delete This Contact</a>
 					</div>
 				</form>
 			</div>
