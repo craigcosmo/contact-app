@@ -3,17 +3,18 @@ import {PropTypes} from "react";
 import {Link} from "react-router";
 
 export default class List extends React.Component{
-	editItem(){
+	editItem(e){
+		const firekey = e.target.getAttribute('data-firekey');
 		this.context.router.push({
-			pathname: '/create',
+			pathname: '/update',
 			query: {
-				key: this.props.key
+				key: firekey
 			}
 		});
 	}
 	createItem(item, index) {
 		return (
-			<a class="list-group-item" firekey= {item['.key']} key={ item['.key'] } onClick={this.editItem}>
+			<a class="list-group-item" data-firekey= {item['.key']} key={ item['.key'] } onClick={this.editItem.bind(this)}>
 					{ item.firstName }
 			</a>
 		);

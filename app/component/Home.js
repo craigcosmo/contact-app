@@ -3,8 +3,6 @@ import EmptyList from "../component/EmptyList";
 import List from "../component/List";	
 
 
-
-
 export default class Home extends React.Component{
 	constructor(){
 		super();
