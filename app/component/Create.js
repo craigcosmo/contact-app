@@ -1,25 +1,28 @@
 import React from "react";
 import {PropTypes} from "react";
 import {Link} from "react-router";
+import linkState from "react-link-state";
 
 
 export default class Create extends React.Component{
 	constructor(){
 		super();
 		this.state = {
-			id: null,
-			firstName:'',
-			lastName: '',
-			email:'',
-			phone: '',
-			gender:'',
-			address: {
-				address1:'',
-				address2:'',
-				postalCode: '',
-				isActive: false 
+			items: {
+				id: null,
+				firstName:'',
+				lastName: '',
+				email:'',
+				phone: '',
+				gender:'',
+				address: {
+					address1:'',
+					address2:'',
+					postalCode: '',
+					isActive: false 
+				}
 			}
-		};
+		}
 	}
 	createId(){
 
@@ -85,7 +88,7 @@ export default class Create extends React.Component{
 		this.firebaseRef = new Firebase('https://sweltering-heat-7923.firebaseio.com/contact');
 	}
 	validateForm(callback){
-		const fname = this.state.firstName;
+		const fname = this.state.items.firstName;
 		if(!fname){
 			alert('first name must be provided');
 			return;
@@ -100,7 +103,7 @@ export default class Create extends React.Component{
 	handleSubmit(e){
 		e.preventDefault();
 		this.validateForm(function (){
-			this.firebaseRef.push(this.state, function (res){
+			this.firebaseRef.push(this.state.items, function (res){
 				// in firebase return null mean nothing wrong, success
 				if(res === null){
 					console.log('inserted');
@@ -125,33 +128,34 @@ export default class Create extends React.Component{
 			<div class="row">
 				<form id="new-form" onSubmit={this.handleSubmit.bind(this)}>
 					
+				
 					<div class="form-group">
-						<input type="text" ref="firstName" class="form-control" onChange={this.firstNameChange.bind(this)} id="first-name" placeholder="First Name" />
+						<input type="text" valueLink={linkState(this, 'items.firstName')}  class="form-control"  id="first-name" placeholder="First Name"  />
 					</div>
 					<div class="form-group">
-						<input type="text" ref="lastName" class="form-control" onChange={this.lastNameChange.bind(this)} id="last-name" placeholder="Last Name" />
+						<input type="text" valueLink={linkState(this, 'items.lastName')}  class="form-control"  id="last-name" placeholder="Last Name"  />
 					</div>
 					<div class="form-group">
-						<input type="text" ref="phone" class="form-control" onChange={this.phoneChange.bind(this)} id="phone" placeholder="Phone" />
+						<input type="text" valueLink={linkState(this, 'items.phone')}  class="form-control"  id="phone" placeholder="Phone"  />
 					</div>
 					<div class="form-group">
-						<input type="email" ref="email" class="form-control" onChange={this.emailChange.bind(this)} id="email" placeholder="Email" />
+						<input type="email" valueLink={linkState(this, 'items.email')} class="form-control" id="email" placeholder="Email"  />
 					</div>
 					<div class="form-group">
-						<input type="text" ref="gender" class="form-control" onChange={this.genderChange.bind(this)} id="gender" placeholder="Gender" />
+						<input type="text" valueLink={linkState(this, 'items.gender')} class="form-control"  id="gender" placeholder="Gender"  />
 					</div>
 					<div class="form-group">
-						<input type="text" ref="address1" class="form-control" onChange={this.address1Change.bind(this)} id="address1" placeholder="Address Line 1" />
+						<input type="text"  valueLink={linkState(this, 'items.address.address1')} class="form-control" id="address1" placeholder="Address Line 1"  />
 					</div>
 					<div class="form-group">
-						<input type="text" ref="address2" class="form-control" onChange={this.address2Change.bind(this)} id="address2" placeholder="Address Line 2" />
+						<input type="text"  valueLink={linkState(this, 'items.address.address2')} class="form-control" id="address2" placeholder="Address Line 2" />
 					</div>
 					<div class="form-group">
-						<input type="text" ref="postalCode" class="form-control" onChange={this.postalCodeChange.bind(this)} id="postal-code" placeholder="Postal Code" />
+						<input type="text" valueLink={linkState(this, 'items.address.postalCode')} class="form-control" id="postal-code" placeholder="Postal Code"  />
 					</div>
 					<div class="checkbox">
 						<label>
-						<input type="checkbox" checked={this.state.address.isActive} onChange={this.isActiveChange.bind(this)} /> Is Active?
+						<input type="checkbox" checkedLink={linkState(this, 'items.address.isActive')} /> Is Active?
 						</label>
 					</div>
 					<div class="form-group text-right">
