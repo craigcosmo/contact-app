@@ -28,10 +28,11 @@ export default class Update extends React.Component{
 	componentWillMount(){
 		// loading data fron db
 		const query = this.props.location.query.key;
+		console.log('query',query);
 		this.firebaseRef = new Firebase('https://sweltering-heat-7923.firebaseio.com/contact/'+query);
 		this.firebaseRef.once("value", function (snapshot){
 			// const items = [];
-			!snapshot.val() && this.redirect();
+			// !snapshot.val() && this.redirect();
 
 			const item = {
 				id: snapshot.val().id ? snapshot.val().id : null,
@@ -77,7 +78,6 @@ export default class Update extends React.Component{
 			// if(res === null){
 				console.log('updated');
 				this.navigate();
-				this.setState = '';
 			// }
 		}.bind(this));
 	}

@@ -12,9 +12,13 @@ module.exports = {
 			{test: /\.js$/, exclude : /(node_modules|bower_components)/, loader: "babel-loader", 
 				query: {
 	                presets: ['react', 'es2015', 'stage-0'],
-	                plugins: ['react-html-attrs', 'transform-class-properties']
+	                plugins: ['react-html-attrs']
 	            }
         	}
 		]
+	},
+	resolve: {
+		modulesDirectories: ["node_modules", "bower_components"]
 	}
 }
+

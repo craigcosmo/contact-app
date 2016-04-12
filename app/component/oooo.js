@@ -1,12 +1,10 @@
 import React from "react";
 import {PropTypes} from "react";
 import {Link} from "react-router";
-import Listjs from "list.js";
 
 export default class List extends React.Component{
-	editItem(key){
-		const firekey = key;
-		console.log(firekey);
+	editItem(e){
+		const firekey = e.target.getAttribute('data-firekey');
 		this.context.router.push({
 			pathname: '/update',
 			query: {
@@ -16,7 +14,7 @@ export default class List extends React.Component{
 	}
 	createItem(item, index) {
 		return (
-			<li class="list-group-item" data-firekey= {item['.key']} key={ item['.key'] } onClick={this.editItem.bind(this, item['.key'])}>
+			<li class="list-group-item" data-firekey= {item['.key']} key={ item['.key'] } onClick={this.editItem.bind(this)}>
 				<span class="firstName">{ item.firstName }</span>
 				<span class="hide lastName ">{ item.lastName }</span>
 				<span class="hide email ">{ item.email }</span>
@@ -28,16 +26,16 @@ export default class List extends React.Component{
 			</li>
 		);
 	}
-	componentDidUpdate(){
+	componentDidMount(){
 		const options = {
 			valueNames: [ 'firstName','lastName','email','phone','gender','address1','address2','postalCode' ]
 		};
 
-		const ul = new Listjs(this.refs.user, options);
+		const ul = new List('users', options);
 	}
 	render(){ 
 		return(
-			<div ref="user">
+			<div id="users">
 				<div class="row">
 					<br />
 					<div class="form-group input-group">

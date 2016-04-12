@@ -11,7 +11,6 @@ export default class MainContainer extends React.Component{
 					<AddButton />
 				</div>
 				
-				<Search />
 
 				{this.props.children}
 			</div>
