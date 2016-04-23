@@ -10,6 +10,9 @@ export default class Update extends React.Component{
 	constructor(){
 		super();
 		this.loadContact = this.loadContact.bind(this);
+		this.redirect = this.redirect.bind(this);
+		this.navigate = this.navigate.bind(this);
+		this.deleteContact = this.deleteContact.bind(this);
 		this.state = {
 			items: {
 				id: null,
@@ -36,68 +39,66 @@ export default class Update extends React.Component{
 	}
 	componentWillUnmount() {
 		UpdateStore.removeListener('change', this.loadContact);
+		UpdateStore.removeListener('change', this.redirect);
+		UpdateStore.removeListener('change', this.navigate);
 	}
 	loadContact(){
 		this.setState({
 			items: UpdateStore.loadIt()
 		})
 	}
-	redirect(){
-		this.context.router.push('/');
-	}
-	deleteContact(e){
-		e.preventDefault();
-		this.firebaseRef.remove();
-		this.context.router.push('/');
-	}
-	navigate () { 
-		this.context.router.push('/');
-	}
-	handleUpdate(e){
+	updateContact(e){
 		e.preventDefault();
 		if(!this.state.items.firstName) {alert('first name must be provided'); return; }
 
-		const status = this.firebaseRef.update(this.state.items, function (){
-			// in firebase return null mean nothing wrong
-			// if(res === null){
-				console.log('updated');
-				this.navigate();
-			// }
-		}.bind(this));
+		const payload = this.state.items;
+		UpdateAction.updateIt(payload);
+		UpdateStore.on('change', this.redirect)
 	}
+	deleteContact(e){
+		e.preventDefault();
+		UpdateAction.removeIt();
+		UpdateStore.on('change', this.navigate);	
+	}
+	navigate() { 
+		this.context.router.push('/');
+	}
+	redirect() { 
+		this.context.router.push('/');
+	}
+	
 	render(){ 
 
 		const cancelbtn = {
 			marginRight: '20px'
 		};
 		return(
-			
 			<div class="row">
-				<form id="new-form" onSubmit={this.handleUpdate.bind(this)}>
+				<form id="new-form" onSubmit={this.updateContact.bind(this)}>
 					
 					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.firstName')}  class="form-control"  id="first-name" placeholder="First Name"  />
+						<input type="text" valueLink={linkState(this, 'items.firstName')}  class="form-control" placeholder="First Name"  />
 					</div>
 					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.lastName')}  class="form-control"  id="last-name" placeholder="Last Name"  />
+						<input type="text" valueLink={linkState(this, 'items.lastName')}  class="form-control"  placeholder="Last Name"  />
 					</div>
 					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.phone')}  class="form-control"  id="phone" placeholder="Phone"  />
+						<input type="text" valueLink={linkState(this, 'items.phone')}  class="form-control"   placeholder="Phone"  />
 					</div>
 					<div class="form-group">
-						<input type="email" valueLink={linkState(this, 'items.email')} class="form-control" id="email" placeholder="Email"  />
+						<input type="email" valueLink={linkState(this, 'items.email')} class="form-control"  placeholder="Email"  />
 					</div>
 					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.gender')} class="form-control"  id="gender" placeholder="Gender"  />
+						<input type="text" valueLink={linkState(this, 'items.gender')} class="form-control"  placeholder="Gender"  />
 					</div>
 					<div class="form-group">
-						<input type="text"  valueLink={linkState(this, 'items.address.address1')} class="form-control" id="address1" placeholder="Address Line 1"  />
+						<input type="text"  valueLink={linkState(this, 'items.address.address1')} class="form-control" placeholder="Address Line 1"  />
 					</div>
 					<div class="form-group">
-						<input type="text"  valueLink={linkState(this, 'items.address.address2')} class="form-control" id="address2" placeholder="Address Line 2" />
+						<input type="text"  valueLink={linkState(this, 'items.address.address2')} class="form-control"  placeholder="Address Line 2" />
 					</div>
 					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.address.postalCode')} class="form-control" id="postal-code" placeholder="Postal Code"  />
+						<input type="text" valueLink={linkState(this, 'items.address.postalCode')} class="form-control"  placeholder="Postal Code"  />
 					</div>
 					<div class="checkbox">
 						<label>

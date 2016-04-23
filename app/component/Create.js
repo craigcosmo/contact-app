@@ -2,6 +2,8 @@ import React from "react";
 import {PropTypes} from "react";
 import {Link} from "react-router";
 import linkState from "react-link-state";
+import Input from "../component/Input";
+import update from 'react-addons-update';
 
 
 export default class Create extends React.Component{
@@ -28,67 +30,26 @@ export default class Create extends React.Component{
 
 		const no1= new Date().getTime().toString();
 		const no2 = (Math.floor(Math.random()*90000) + 10000).toString();
-
 		const total = no1 + no2;
 		const id = parseInt(total);
 
-		this.setState({id:id});
+		const that = this.state.items;	
+		const ns = update(that, {$merge: {id:id}});
+		
+
+		// this.setState({items:ns});
+
 	}
 	componentDidMount(){
 		this.createId();
-	}
-	updateAddressObject(key,val){
-		// console.log(key, val);
-		const thats = this.state;
-		const r = {};
-		r[key] =val;
-		const state = Object.assign({}, thats, {
-		   address: Object.assign({}, thats.address, r)
-		});
-		this.setState(state);
-	}
-	emailChange(e){
-		this.setState({
-			email: e.target.value
-		})
-	}
-	firstNameChange(e){
-		this.setState({
-			firstName: e.target.value
-		})
-	}
-	lastNameChange(e){
-		this.setState({
-			lastName: e.target.value
-		})
-	}
-	genderChange(e){
-		this.setState({
-			gender: e.target.value
-		})
-	}
-	phoneChange(e){
-		this.setState({
-			phone: e.target.value
-		})
-	}
-	address1Change(e){
-		this.updateAddressObject('address1',e.target.value);
-	}
-	address2Change(e){
-		this.updateAddressObject('address2',e.target.value);
-	}
-	postalCodeChange(e){
-		this.updateAddressObject('postalCode',e.target.value);
-	}
-	isActiveChange(e){
-		this.updateAddressObject('isActive',!this.state.address.isActive);
 	}
 	componentWillMount(){
 		this.firebaseRef = new Firebase('https://sweltering-heat-7923.firebaseio.com/contact');
 	}
 	validateForm(callback){
+		// console.log(fname);
 		const fname = this.state.items.firstName;
+
 		if(!fname){
 			alert('first name must be provided');
 			return;
@@ -128,36 +89,9 @@ export default class Create extends React.Component{
 			<div class="row">
 				<form id="new-form" onSubmit={this.handleSubmit.bind(this)}>
 					
-				
-					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.firstName')}  class="form-control"  id="first-name" placeholder="First Name"  />
-					</div>
-					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.lastName')}  class="form-control"  id="last-name" placeholder="Last Name"  />
-					</div>
-					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.phone')}  class="form-control"  id="phone" placeholder="Phone"  />
-					</div>
-					<div class="form-group">
-						<input type="email" valueLink={linkState(this, 'items.email')} class="form-control" id="email" placeholder="Email"  />
-					</div>
-					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.gender')} class="form-control"  id="gender" placeholder="Gender"  />
-					</div>
-					<div class="form-group">
-						<input type="text"  valueLink={linkState(this, 'items.address.address1')} class="form-control" id="address1" placeholder="Address Line 1"  />
-					</div>
-					<div class="form-group">
-						<input type="text"  valueLink={linkState(this, 'items.address.address2')} class="form-control" id="address2" placeholder="Address Line 2" />
-					</div>
-					<div class="form-group">
-						<input type="text" valueLink={linkState(this, 'items.address.postalCode')} class="form-control" id="postal-code" placeholder="Postal Code"  />
-					</div>
-					<div class="checkbox">
-						<label>
-						<input type="checkbox" checkedLink={linkState(this, 'items.address.isActive')} /> Is Active?
-						</label>
-					</div>
+					<Input linkState ={linkState} state ={this.state} />
+
+		
 					<div class="form-group text-right">
 						<Link to="/" class="btn btn-default" style={cancelbtn}>Cancel</Link>
 						<button type="submit" class="btn btn-default" >Done</button>

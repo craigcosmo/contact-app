@@ -43,9 +43,16 @@ class UpdateStore extends EventEmitter {
 			this.emit("change");
 		}.bind(this));
 	}
-	deleteIt(){
-		this.firebaseRef.remove();
-		this.emit("deleted");
+	updateIt(data){
+		const status = this.firebaseRef.update(data, function (){
+			console.log('updated');
+			this.emit("change");
+		}.bind(this));
+	}
+	removeIt(){
+		this.firebaseRef.remove( function (error){
+			!error && this.emit("change");
+		}.bind(this));
 	}
 	loadIt(){
 		return this.items;
@@ -54,11 +61,14 @@ class UpdateStore extends EventEmitter {
 		switch(action.type) {
 			case "GET_THIS_CONTACT": {
 				this.getIt(action.text);
-				
+				break;
+			}
+			case "UPDATE_THIS_CONTACT": {
+				this.updateIt(action.text);
 				break;
 			}
 			case "DELETE_THIS_CONTACT": {
-				this.deleteIt();
+				this.removeIt();
 				break;
 			}
 		}
