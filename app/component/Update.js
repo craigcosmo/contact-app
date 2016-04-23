@@ -9,7 +9,7 @@ import UpdateStore from "../store/UpdateStore";
 export default class Update extends React.Component{
 	constructor(){
 		super();
-
+		this.loadContact = this.loadContact.bind(this);
 		this.state = {
 			items: {
 				id: null,
@@ -32,10 +32,10 @@ export default class Update extends React.Component{
 		const query = this.props.location.query.key;
 
 		UpdateAction.getIt(query);
-		UpdateStore.on('change', this.loadContact.bind(this))
+		UpdateStore.on('change', this.loadContact)
 	}
 	componentWillUnmount() {
-		UpdateStore.removeListener('change', this.loadContact.bind(this));
+		UpdateStore.removeListener('change', this.loadContact);
 	}
 	loadContact(){
 		this.setState({
