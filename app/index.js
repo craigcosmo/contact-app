@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import {Router, Route, hashHistory, IndexRoute } from "react-router";
+import {Router, Route, browserHistory, IndexRoute } from "react-router";
 
 import MainContainer from "./component/MainContainer";
 import Home from "./component/Home";
@@ -14,7 +14,7 @@ import Update from "./component/Update";
 const app = document.getElementById('app');
 
 ReactDOM.render(
-	<Router history={hashHistory}>
+	<Router history={browserHistory}>
 		<Route path="/" component={MainContainer}>
 			<IndexRoute component={Home} />
 			<Route path="search" component={Search} />

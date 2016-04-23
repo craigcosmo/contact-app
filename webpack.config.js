@@ -19,6 +19,10 @@ module.exports = {
 	},
 	resolve: {
 		modulesDirectories: ["node_modules", "bower_components"]
+	},
+	devServer: {
+	    historyApiFallback: true
+	    // reference link : http://stackoverflow.com/questions/34358334/react-router-error-cannot-get-page-name
 	}
 }
 
