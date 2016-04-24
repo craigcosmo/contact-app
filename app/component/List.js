@@ -4,9 +4,7 @@ import {Link} from "react-router";
 import Listjs from "list.js";
 
 export default class List extends React.Component{
-	editItem(key){
-		const firekey = key;
-		console.log(firekey);
+	editItem(firekey){
 		this.context.router.push({
 			pathname: '/update',
 			query: {
