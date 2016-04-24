@@ -14,7 +14,7 @@ export default class List extends React.Component{
 	}
 	createItem(item, index) {
 		return (
-			<li class="list-group-item" data-firekey= {item['.key']} key={ item['.key'] } onClick={this.editItem.bind(this, item['.key'])}>
+			<li class="list-group-item" key={ index } onClick={this.editItem.bind(this, item['.key'])}>
 				<span class="firstName">{ item.firstName }</span>
 				<span class="hide lastName ">{ item.lastName }</span>
 				<span class="hide email ">{ item.email }</span>
