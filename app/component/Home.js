@@ -25,6 +25,7 @@ export default class Home extends React.Component{
 		this.setState({
 			items: HomeStore.loadIt()
 		})
+		console.log(HomeStore.loadIt());
 	}
 	render(){ 
 		return(

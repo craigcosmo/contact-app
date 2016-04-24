@@ -11,7 +11,8 @@ class HomeStore extends EventEmitter {
 
 		this.firebaseRef = new Firebase('https://sweltering-heat-7923.firebaseio.com/contact');
 		this.firebaseRef.once("value", function (snapshot){
-			// const items = [];
+			this.items = []; // fix the duplicate item when click an item then go back home with cancle button, I need to clear the items array first
+
 			snapshot.forEach(function(data){
 				const item = {
 					id: data.val().id ? data.val().id : null,
