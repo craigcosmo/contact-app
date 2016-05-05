@@ -1,9 +1,9 @@
-import React from "react";
-import EmptyList from "../component/EmptyList";
-import List from "../component/List";
-import * as HomeAction from "../action/HomeAction";
-import HomeStore from "../store/HomeStore";
-import '../sass/home.scss';
+import React from 'react'
+import EmptyList from '../component/EmptyList'
+import List from '../component/List'
+import * as HomeAction from '../action/HomeAction'
+import HomeStore from '../store/HomeStore'
+import '../sass/home.scss'
 
 
 

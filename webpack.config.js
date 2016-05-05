@@ -5,7 +5,7 @@ module.exports = {
 		"./app/index.js"
 	],
 	output: {
-		path: __dirname + '/app/dist',
+		path: __dirname + '/app',
 		filename: "bundle.js"
 	},
 	module: {
@@ -22,9 +22,6 @@ module.exports = {
 			{
 				test: /\.scss$/,
 				loader: ExtractTextPlugin.extract('css!sass')
-				// refrencing http://www.jonathan-petitcolas.com/2015/05/15/howto-setup-webpack-on-es6-react-application-with-sass.html
-				// and http://humaan.com/getting-started-with-webpack-and-react-es6-style/
-				// look for dan barret comment in the commnent section
 			}
 		]
 	},
@@ -36,7 +33,7 @@ module.exports = {
 		// reference http://stackoverflow.com/questions/34358334/react-router-error-cannot-get-page-name
 	},
 	plugins: [
-		new ExtractTextPlugin('dist/bundle.css', {
+		new ExtractTextPlugin('bundle.css', {
 			allChunks: true
 		})
 	]
