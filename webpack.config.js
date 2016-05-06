@@ -1,8 +1,10 @@
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+	context: __dirname + "/app",
+	// refer https://robots.thoughtbot.com/setting-up-webpack-for-react-and-hot-module-replacement
 	entry:[
-		"./app/index.js"
+		"./index.js"
 	],
 	output: {
 		path: __dirname + '/app',

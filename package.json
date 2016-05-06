@@ -6,7 +6,7 @@
   "scripts": {
     "pro": "webpack -p",
     "watch": "webpack --watch",
-    "dev": "webpack-dev-server --content-base app --inline --hot"
+    "dev": "webpack-dev-server --devtool eval --progress --colors --content-base app --inline --hot"
   },
   "author": "",
   "license": "ISC",
