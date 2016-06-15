@@ -6,6 +6,10 @@ module.exports = {
 	entry:[
 		"./index.js"
 	],
+	devServer: {
+		historyApiFallback: true,
+		port:3311
+	},
 	output: {
 		path: __dirname + '/app',
 		filename: "bundle.js"
@@ -29,10 +33,6 @@ module.exports = {
 	},
 	resolve: {
 		modulesDirectories: ["node_modules", "bower_components"]
-	},
-	devServer: {
-		historyApiFallback: true
-		// reference http://stackoverflow.com/questions/34358334/react-router-error-cannot-get-page-name
 	},
 	plugins: [
 		new ExtractTextPlugin('bundle.css', {

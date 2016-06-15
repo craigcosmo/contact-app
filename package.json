@@ -5,7 +5,6 @@
   "main": "webpack.config.js",
   "scripts": {
     "pro": "webpack -p",
-    "watch": "webpack --watch",
     "dev": "webpack-dev-server --devtool eval --progress --colors --content-base app --inline --hot"
   },
   "author": "",
