@@ -1,28 +1,58 @@
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
+	context: __dirname + "/app",
+	// refer https://robots.thoughtbot.com/setting-up-webpack-for-react-and-hot-module-replacement
 	entry:[
-	"./app/index.js"
+		"./index.js"
 	],
+	devServer: {
+		historyApiFallback: true,
+		port:3311
+	},
 	output: {
 		path: __dirname + '/app',
 		filename: "bundle.js"
 	},
 	module: {
 		loaders : [
-			{test: /\.js$/, exclude : /(node_modules|bower_components)/, loader: "babel-loader", 
+			{
+				test: /\.js$/, 
+				exclude : /(node_modules|bower_components)/, 
+				loader: "babel-loader", 
 				query: {
+<<<<<<< HEAD
 	                presets: ['react', 'es2015'],
 	                plugins: ['react-html-attrs']
 	            }
         	}
+=======
+					presets: ['react', 'es2015'],
+					plugins: ['react-html-attrs']
+				}
+			},
+			{
+				test: /\.scss$/,
+				loader: ExtractTextPlugin.extract('css!sass')
+			}
+>>>>>>> flux-sass-test
 		]
 	},
 	resolve: {
 		modulesDirectories: ["node_modules", "bower_components"]
 	},
+<<<<<<< HEAD
 	devServer: {
 	    historyApiFallback: true
 	    // reference link : http://stackoverflow.com/questions/34358334/react-router-error-cannot-get-page-name
 	}
+=======
+	plugins: [
+		new ExtractTextPlugin('bundle.css', {
+			allChunks: true
+		})
+	]
+>>>>>>> flux-sass-test
 }
+
 
