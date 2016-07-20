@@ -45,7 +45,6 @@ class HomeStore extends EventEmitter {
 				this.loadAllContact();
 				break;
 			}
-			
 		}
 	}
 
