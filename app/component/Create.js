@@ -4,7 +4,7 @@ import {Link} from "react-router";
 import linkState from "react-link-state";
 import Input from "../component/Input";
 import update from 'react-addons-update';
-
+import firebase from 'firebase'
 
 export default class Create extends React.Component{
 	constructor(){
