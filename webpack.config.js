@@ -21,12 +21,6 @@ module.exports = {
 				exclude : /(node_modules|bower_components)/, 
 				loader: "babel-loader", 
 				query: {
-<<<<<<< HEAD
-	                presets: ['react', 'es2015'],
-	                plugins: ['react-html-attrs']
-	            }
-        	}
-=======
 					presets: ['react', 'es2015'],
 					plugins: ['react-html-attrs']
 				}
@@ -35,24 +29,17 @@ module.exports = {
 				test: /\.scss$/,
 				loader: ExtractTextPlugin.extract('css!sass')
 			}
->>>>>>> flux-sass-test
+
 		]
 	},
 	resolve: {
 		modulesDirectories: ["node_modules", "bower_components"]
 	},
-<<<<<<< HEAD
-	devServer: {
-	    historyApiFallback: true
-	    // reference link : http://stackoverflow.com/questions/34358334/react-router-error-cannot-get-page-name
-	}
-=======
 	plugins: [
 		new ExtractTextPlugin('bundle.css', {
 			allChunks: true
 		})
 	]
->>>>>>> flux-sass-test
 }
 
 

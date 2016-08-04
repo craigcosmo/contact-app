@@ -3,15 +3,15 @@ Contact app built with React and Firebase.
 
 
 ## Installing
-```bash
-Open contact app folder in terminal and type: npm install
-This will install all dependencies of this app such as React, Webpack, Babel, Link-State-React, React-Router, Firebase...
+
+```
+npm i
 ```
 
 ## Usage
 
 1 Open contact app folder in terminal and type: npm run dev
-2 Open this address in browser: http://localhost:8080
+2 Open this address in browser: http://localhost:3131
 
 ## Feature
 

@@ -33,38 +33,9 @@ export default class Update extends React.Component{
 
 	componentWillMount(){
 		const query = this.props.location.query.key;
-<<<<<<< HEAD
-
-		this.firebaseRef = new Firebase('https://sweltering-heat-7923.firebaseio.com/contact/'+query);
-		this.firebaseRef.once("value", function (snapshot){
-			// const items = [];
-			// !snapshot.val() && this.redirect();
-
-			const item = {
-				id: snapshot.val().id ? snapshot.val().id : null,
-				firstName: snapshot.val().firstName ? snapshot.val().firstName : null,
-				lastName: snapshot.val().lastName ? snapshot.val().lastName : '',
-				email: snapshot.val().email ? snapshot.val().email : '',
-				phone: snapshot.val().phone ? snapshot.val().phone : '',
-				gender: snapshot.val().gender ? snapshot.val().gender : '',
-				address : {
-					address1: snapshot.val().address.address1 ? snapshot.val().address.address1 : '',
-					address2: snapshot.val().address.address2 ? snapshot.val().address.address2 : '',
-					postalCode: snapshot.val().address.postalCode ? snapshot.val().address.postalCode : '',
-					isActive: snapshot.val().address.isActive ? snapshot.val().address.isActive : false
-				}
-			};
-
-			this.setState({
-				items : item
-			});
-			// console.log('this is state',this.state.items);
-		}.bind(this));
-=======
 
 		UpdateAction.getIt(query);
 		UpdateStore.on('change', this.loadContact)
->>>>>>> flux-sass-test
 	}
 	componentWillUnmount() {
 		UpdateStore.removeListener('change', this.loadContact);
