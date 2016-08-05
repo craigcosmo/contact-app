@@ -1,8 +1,9 @@
 import React from 'react'
 import Search from '../component/Search'
 import AddButton from '../component/AddButton'
-import '../sass/main.scss'
 import '../sass/bootstrap.scss'
+import '../sass/main.scss'
+
 
 export default class MainContainer extends React.Component{
 	render(){ 	
